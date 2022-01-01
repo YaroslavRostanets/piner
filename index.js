@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const {startAction} = require('./actions')
+const PORT = process.env.PORT || 3000
 
 app.get('/', function (req, res) {
   res.send('Hello World!')
@@ -23,4 +24,4 @@ const fn = () => {
 // fn()
  
 
-app.listen(5000)
+app.listen(PORT)
