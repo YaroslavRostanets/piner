@@ -21,7 +21,7 @@ const fn = () => {
   }, timeout)
 }
 
-// fn()
+fn()
  
 
 app.listen(PORT)
