@@ -4,7 +4,7 @@ const URL = process.env.URL || 'http://localhost:3000/page.html';
 
 const getPage = async () => {
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     args: ["--no-sandbox"]
   });
   const page = await browser.newPage();
