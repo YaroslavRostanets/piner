@@ -1,27 +1,31 @@
 const express = require('express')
 const app = express()
-const {startAction} = require('./actions')
+const {getPage} = require('./actions')
 const PORT = process.env.PORT || 3000
+const {getRandomArbitrary, delay} = require('./utils')
 
+app.use(express.static('public'));
 app.get('/', function (req, res) {
   res.send('Hello World!')
 })
 
-function getRandomArbitrary(min, max) {
-  return Math.floor(Math.random() * (max - min) + min);
-}
+const asyncIterable = {
+  [Symbol.asyncIterator]() {
+    return {
+      async next() {
+        await getPage();
+        const pause = getRandomArbitrary(1000, 60000);
+        await delay(pause);
+        return Promise.resolve({ done: false });
+      }
+    };
+  }
+};
 
-let timeout = 0
-
-const fn = () => {
-  setTimeout(() => {
-    timeout = getRandomArbitrary(60, 120) * 1000
-    startAction();
-    fn()
-  }, timeout)
-}
-
-fn()
- 
+(async function() {
+  for await (let page of asyncIterable) {
+    console.log(page);
+  }
+})();
 
 app.listen(PORT)
