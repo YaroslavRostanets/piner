@@ -22,10 +22,10 @@ const asyncIterable = {
   }
 };
 
-// (async function() {
-//   for await (let page of asyncIterable) {
-//     console.log(page);
-//   }
-// })();
+(async function() {
+  for await (let page of asyncIterable) {
+    console.log(page);
+  }
+})();
 
 app.listen(PORT)
